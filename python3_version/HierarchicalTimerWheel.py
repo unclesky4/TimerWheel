@@ -18,7 +18,9 @@ SECONDS = 3
 FRAME   = 4
 
 # debug 时间流逝速度, 正常1.0
-TIME_ELAPSED = 0.001
+# TIME_ELAPSED = 0.001
+# 1.0为正常秒针速度
+TIME_ELAPSED = 1.0
 
 def get_seconds(hour, minute, seconds, frame):
     return hour * 3600.0 + minute * 60.0 + seconds + frame / 30.0
@@ -396,6 +398,11 @@ class HierarchicalTimerWheel(object):
         return dhour, dminute, dseconds, dframes
 
     def delay_exec(self, delay, callback):
+        '''
+        Parameters:
+            delay - 延时时间，秒
+            callback - 执行函数代码
+        '''
         (dhour, hour_remainder), (dminute, minute_remainder), (dseconds, seconds_remainder), (dframes,_) = self.calc_param(delay)
         if dhour:
             rounds = int(dhour / 24)
